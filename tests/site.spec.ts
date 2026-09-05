@@ -5,6 +5,13 @@ test('navigation, posts, and project pages work', async ({ page }) => {
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText("Hi, I'm Akshat Aggarwal");
+  await page.goto('/about/');
+  await expect(page.getByRole('heading', { name: 'Skills' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Achievements' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Competitive programming' })).toBeVisible();
+  await expect(page.locator('.cp-spark path')).toHaveCount(3);
+  await expect(page.locator('.cp-card').getByRole('link', { name: 'Codeforces' })).toHaveAttribute('href', 'https://codeforces.com/profile/master._.mind');
+  await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Latest blogs' })).toBeVisible();
   await page.getByRole('navigation').getByRole('link', { name: 'Blogs' }).click();
   await expect(page.getByRole('navigation').getByRole('link', { name: 'Blogs' })).toHaveAttribute('aria-current', 'page');

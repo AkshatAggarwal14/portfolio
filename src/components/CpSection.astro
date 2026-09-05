@@ -1,0 +1,31 @@
+---
+import cp from '../data/cp.json';
+
+const W = 220, H = 56, PAD = 6;
+function spark(history: number[][]): string | null {
+  if (history.length < 2) return null;
+  const vals = history.map((p) => p[1]);
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const span = max - min || 1;
+  const pts = history.map((p, i) => {
+    const x = PAD + (i / (history.length - 1)) * (W - PAD * 2);
+    const y = PAD + (1 - (p[1] - min) / span) * (H - PAD * 2);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  return `M${pts.join(' L')}`;
+}
+---
+<section class="section-block" id="cp" aria-labelledby="cp-title">
+  <div class="section-heading"><div><span class="eyebrow">CP / RATINGS</span><h2 id="cp-title">Competitive programming<span class="heading-dot">.</span></h2></div><span class="section-aside">AS OF {cp.asOf.toUpperCase()}</span></div>
+  <div class="cp-grid">
+    {cp.platforms.map((p) => (
+      <article class="tcard cp-card"><div class="tcard-in">
+        <div class="cp-top"><a href={p.url} target="_blank" rel="noopener noreferrer" class="cp-name">{p.name}</a><span class="cp-badge" style={`--cp:${p.color}`}>{p.rank}</span></div>
+        <a class="cp-handle mono" href={p.url} target="_blank" rel="noopener noreferrer">@{p.handle}</a>
+        <p class="cp-rating">{p.peak.toLocaleString()}</p>
+        <div class="cp-stats">{p.stats.map((s) => <div><span>{s.value}</span><small>{s.label}</small></div>)}</div>
+        {(() => { const d = spark(p.history); return d ? <svg class="cp-spark" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${p.name} rating over time`}><path d={d} fill="none" stroke={p.color} stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /></svg> : null; })()}
+      </div></article>
+    ))}
+  </div>
+</section>
