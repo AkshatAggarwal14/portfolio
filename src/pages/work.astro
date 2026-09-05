@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { site } from '../data/site';
+---
+<Layout title="Work" description="Selected public work by Akshat Aggarwal, straight from GitHub.">
+  <header class="page-heading"><span class="eyebrow">SELECTED WORK, STRAIGHT FROM GITHUB</span><h1>Work<span class="heading-dot">.</span></h1><p>A few things I've built and shared. Every card links to the real repository.</p></header>
+  {site.work.length > 0 ? (
+    <div class="work-list work-page-list">{site.work.map((project) => <WorkCard {...project} />)}</div>
+  ) : (
+    <div class="tcard"><div class="tcard-in coming-soon"><h2>Coming soon.</h2><p>Nothing public to show here yet. Check back later.</p></div></div>
+  )}
+  <div class="article-end work-end"><span class="tiny-star">*</span><a class="text-link" href="https://github.com/AkshatAggarwal14" target="_blank" rel="noopener noreferrer">More on GitHub <Icon name="arrow" size={16} /></a></div>
+</Layout>

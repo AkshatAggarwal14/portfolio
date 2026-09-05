@@ -1,0 +1,10 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+export async function getStaticPaths() { return (await getCollection('posts')).map((post) => ({ params: { id: post.id }, props: { post } })); }
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<Layout title={post.data.title} description={post.data.description}>
+  <article class="article-wrap"><a class="text-link back-link" href="/posts/">&larr; Back to the notebook</a><header class="page-heading"><span class="eyebrow">{post.data.category} / {post.data.readTime}</span><h1>{post.data.title}<span class="heading-dot">.</span></h1><p class="mono article-date">{post.data.date.toLocaleDateString('en-US', { dateStyle: 'long', timeZone: 'UTC' })}</p>{post.data.mediumUrl && <a class="text-link medium-link" href={post.data.mediumUrl} target="_blank" rel="noopener noreferrer">Originally published on Medium ↗</a>}</header>{post.data.sample && <aside class="sample-banner">Sample post from the starter. Replace it with your own writing before publishing.</aside>}<div class="prose"><Content /></div><div class="article-end"><span class="tiny-star">*</span><a href="/contact/" class="text-link">Have a thought? Let's connect &rarr;</a></div></article>
+</Layout>

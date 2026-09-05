@@ -1,0 +1,12 @@
+---
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+---
+<div class="contact-links">
+  {site.socials.map((social) => social.url ?
+    <a class="contact-link" href={social.url} target="_blank" rel="noopener noreferrer"><Icon name={social.icon} /><span>{social.name}<small>{social.handle}</small></span><Icon name="arrow" size={17} /></a> :
+    <div class="contact-link unconfigured"><Icon name={social.icon} /><span>{social.name}<small>Add your profile URL</small></span><span class="setup-label">Not set</span></div>
+  )}
+  {site.email ? <a class="contact-link" href={`mailto:${site.email}`}><Icon name="mail" /><span>Email<small>{site.email}</small></span><Icon name="arrow" size={17} /></a> :
+    <div class="contact-link unconfigured"><Icon name="mail" /><span>Email<small>Add your email address</small></span><span class="setup-label">Not set</span></div>}
+</div>

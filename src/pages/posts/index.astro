@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Layout title="Posts">
+  <header class="page-heading"><span class="eyebrow">THE NOTEBOOK</span><h1>Thinking out loud<span class="heading-dot">.</span></h1><p>Notes on building software, learning things, and everything in between.</p></header>
+  <section class="card archive"><div class="archive-heading mono"><span>ALL POSTS</span><span>{String(posts.length).padStart(2, '0')} ENTRIES</span></div>{posts.map((post) => <a class="archive-row" href={`/posts/${post.id}/`}><span class="mono archive-date">{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</span><div><div class="eyebrow">{post.data.category}{post.data.sample && <span class="sample-badge">SAMPLE</span>}</div><h2>{post.data.title}</h2><p>{post.data.description}</p><small>{post.data.readTime}</small></div><Icon name="arrow" /></a>)}</section>
+</Layout>

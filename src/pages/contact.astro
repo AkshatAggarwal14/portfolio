@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactLinks from '../components/ContactLinks.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+---
+<Layout title="Contact">
+  <header class="page-heading"><span class="eyebrow">CONTACT</span><h1>Let's cross paths<span class="heading-dot">.</span></h1><p>Have something worth an email? These channels all reach me.</p></header>
+  <div class="contact-grid"><section class="card contact-main"><span class="small-spark">✳</span><h2>Get in touch.</h2><p>Questions about the work here, ideas worth sharing, or just a hello. Pick whichever channel suits you.</p>{site.email ? <div class="email-actions"><a class="button primary" href={`mailto:${site.email}`}>Send an email <Icon name="arrow" size={18} /></a><button class="button secondary" id="copy-email" data-email={site.email}><Icon name="copy" size={17} /> Copy address</button></div> : <p class="sample-banner">Your contact links aren't configured yet. Add them in <code>src/data/site.ts</code> to make this space yours.</p>}<p class="copy-status" role="status" aria-live="polite"></p></section><section class="card contact-channels"><h2 class="eyebrow">ELSEWHERE ON THE INTERNET</h2><ContactLinks /></section></div>
+  <script>
+    document.querySelector<HTMLButtonElement>('#copy-email')?.addEventListener('click', async (event) => {
+      const button = event.currentTarget as HTMLButtonElement;
+      const status = document.querySelector('.copy-status');
+      try {
+        await navigator.clipboard.writeText(button.dataset.email || '');
+        if (status) status.textContent = 'Email address copied.';
+      } catch {
+        if (status) status.textContent = `Copy wasn't available. Email: ${button.dataset.email}`;
+      }
+    });
+  </script>
+</Layout>

@@ -1,0 +1,10 @@
+@media print {
+  html[data-theme] { color-scheme: light; --bg: white; --surface: white; --raised: white; --text: #111; --muted: #444; --faint: #555; --border: #ccc; --accent: #583789; }
+  body { background: white !important; }
+  .shell { width: 100% !important; }
+  .site-header, .site-footer, .resume-heading, .resume-notice, .skip-link { display: none !important; }
+  .resume-sheet { border: 0 !important; padding: 0 !important; overflow: visible !important; }
+  .resume-section { break-inside: avoid; padding: 18px 0 !important; }
+  .resume-identity { padding-bottom: 20px !important; }
+  @page { margin: 18mm; }
+}
