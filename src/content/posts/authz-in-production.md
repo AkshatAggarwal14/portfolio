@@ -23,7 +23,6 @@ At the heart of any authorization system is a model for how to make decisions. F
 Role-Based Access Control (RBAC) is the most common model, and it works just like it sounds. People are assigned roles, like “Administrator,” “Sales Rep,” or “Editor,” and each role comes with a specific set of permissions.
 
 - **Why it’s popular:** It’s simple to understand and manage, especially in smaller organizations or those with very defined job functions. Onboarding a new sales rep is as easy as giving them the “Sales Rep” role. When they move to a new department, you just change their role, and their permissions update automatically.
-
 - **The big problem:** As a company grows, this model can get messy. You start needing more and more specific roles: “Editor-Marketing-US,” “Editor-Finance-Read-Only,” “Editor-Temporary-Contractor.” This is called **“role explosion,”** and it can make the system incredibly complex and hard to manage, ironically reintroducing the security risks RBAC was meant to solve.
 
 #### **Attribute-Based Access Control (ABAC): The Modern, Smarter Way**
@@ -31,15 +30,10 @@ Role-Based Access Control (RBAC) is the most common model, and it works just lik
 Instead of static roles, Attribute-Based Access Control (ABAC) makes decisions using the specific characteristics (or attributes) of the situation. It looks at a few key things in real-time:
 
 1. **Who is the user?** (e.g., their job title, department, security clearance)
-
 2. **What are they trying to access?** (e.g., a financial report, a public blog post, customer data)
-
 3. **What are they trying to do?** (e.g., read, write, delete)
-
 4. **What is the context?** (e.g., time of day, user’s location, device they’re using)
-
 - **Why it’s powerful:** ABAC is incredibly flexible and context-aware. It lets you create fine-grained rules that are impossible with RBAC alone. For example, a policy could say: “Allow a doctor to read a patient’s medical record*only if* they are in the same department as the patient and it’s during business hours.” This dynamic approach is perfect for large, complex companies with strict security and compliance needs.
-
 - **The trade-off:** It can be more complex to set up initially, as you have to define all the relevant attributes and policies.
 
 Many companies find a sweet spot by using a **hybrid approach**: using RBAC for broad, baseline permissions and layering ABAC on top for more sensitive operations.
@@ -53,9 +47,7 @@ The idea is simple but powerful: treat your authorization policies just like you
 This approach has huge benefits:
 
 - **Speed and Automation:** Policy changes can be rolled out quickly and safely through automated pipelines.
-
 - **Collaboration:** Developers, security, and operations teams can all work together on the same policy files, breaking down silos.
-
 - **Traceability:** Every change to a policy is tracked, reviewed, and auditable. If a new rule causes problems, you can instantly roll it back.
 
 ### **Open Policy Agent (OPA): The Engine for Policy-as-Code**
@@ -67,11 +59,8 @@ Policies for OPA are written in a special-purpose language called **Rego**. Rego
 Let’s look at a simple example. Imagine we want to write a policy for accessing employee salary data with these rules:
 
 1. By default, nobody can see anything.
-
 2. You can see your own salary.
-
 3. Managers can see the salaries of people who report directly to them.
-
 4. Anyone in HR can see anyone’s salary.
 
 Here’s what that looks like in a Rego policy file:

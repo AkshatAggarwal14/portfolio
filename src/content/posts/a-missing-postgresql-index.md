@@ -22,7 +22,7 @@ With the feature failing in production, I had to find the specific query causing
 
 Finding the suspect was one thing; proving its guilt was another. For that, I turned to the most powerful tool in my arsenal: EXPLAIN ANALYZE. This command doesn't just show you what the database *thinks* it will do; it actually runs the query and tells you what *really* happened. I ran the following command against the production database to get the real-world execution plan:
 
-```
+```sql
 EXPLAIN (ANALYZE, BUFFERS) SELECT * FROM habits_daily WHERE date = $1 AND user_id = $2;
 ```
 
@@ -48,7 +48,7 @@ The answer was CREATE INDEX CONCURRENTLY. This command is a lifesaver for live s
 
 This is the command we used to safely deploy the fix:
 
-```
+```sql
 CREATE INDEX CONCURRENTLY idx_habits_daily_user_date ON habits_daily (user_id, date);
 ```
 
@@ -59,9 +59,7 @@ It also comes with a major caveat: it can’t be run inside a transaction. This 
 That production test was one of the most stressful but valuable experiences of my career. It drove home a few key lessons:
 
 - **Test data must mirror production.** Without realistic data volumes, performance testing is meaningless and can create dangerous blind spots.
-
 - **EXPLAIN ANALYZE is your best friend.** It provides the ground truth for how your queries are performing and is the fastest way to diagnose a database bottleneck.
-
 - **Production schema changes are serious.** A simple CREATE INDEX can cause a major outage. Always use non-locking alternatives like CREATE INDEX CONCURRENTLY on live systems.
 
 In the end, the incident was a forceful reminder that the fundamentals matter. A deep understanding of how the database works isn’t just for DBAs; it’s a critical skill for any engineer who wants to build resilient and performant applications.

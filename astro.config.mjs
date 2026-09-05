@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
+import remarkGfm from 'remark-gfm';
 
 export default defineConfig({
   site: process.env.SITE_URL || 'https://yourname.pages.dev',
   output: 'static',
+  markdown: { shikiConfig: { themes: { light: 'github-light', dark: 'dracula' }, defaultColor: false }, remarkPlugins: [remarkGfm] },
 });

@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { site } from '../../data/site';
+export function getStaticPaths() { return site.work.map((project) => ({ params: { slug: project.slug }, props: { project } })); }
+const { project } = Astro.props;
+---
+<Layout title={project.title} description={project.description}>
+  <article class="article-wrap">
+    <a class="text-link back-link" href="/projects/"><span class="back-arrow">&larr;</span> All projects</a>
+    <header class="page-heading project-head">
+      <span class="eyebrow">{project.language}{('stars' in project && typeof project.stars === 'number') ? ` · ★ ${project.stars}` : ''}</span>
+      <h1>{project.title}<span class="heading-dot">.</span></h1>
+      <p>{project.description}</p>
+      <p class="project-links"><a href={project.url} target="_blank" rel="noopener noreferrer">Repository</a>{('demo' in project && project.demo) ? <span> · <a href={project.demo} target="_blank" rel="noopener noreferrer">Live demo</a></span> : null}</p>
+    </header>
+    <div class="prose">
+      <h2>About</h2>
+      <ul>{project.details.map((d) => <li>{d}</li>)}</ul>
+      <h2>Stack</h2>
+      <div class="tags">{project.stack.map((s) => <span>{s}</span>)}</div>
+    </div>
+    <div class="article-end"><span class="tiny-star">*</span><a href="/contact/" class="text-link">Have a thought? Let's connect &rarr;</a></div>
+  </article>
+</Layout>
