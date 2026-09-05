@@ -16,6 +16,7 @@ import Icon from '../components/Icon.astro';
 interface Props { title?: string; description?: string; }
 const { title = 'Home', description = site.description } = Astro.props;
 const path = Astro.url.pathname;
+const fullTitle = title === 'Home' ? site.name : `${title} · ${site.name}`;
 const navigation = [{ title: 'Home', href: '/' }, { title: 'Projects', href: '/projects/' }, { title: 'Blogs', href: '/blogs/' }, { title: 'About', href: '/about/' }, { title: 'Contact', href: '/contact/' }];
 ---
 <!doctype html>
@@ -25,12 +26,12 @@ const navigation = [{ title: 'Home', href: '/' }, { title: 'Projects', href: '/p
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#17181e" />
-    <meta property="og:title" content={`${title} / ${site.name}`} />
+    <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <link rel="canonical" href={new URL(path, Astro.site)} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title} / {site.name}</title>
+    <title>{fullTitle}</title>
     <script is:inline>
       try { document.documentElement.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark'; } catch {}
     </script>
