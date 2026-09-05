@@ -4,8 +4,10 @@ import '@fontsource/space-grotesk/500.css';
 import '@fontsource/space-grotesk/600.css';
 import '@fontsource/space-grotesk/700.css';
 import '@fontsource/inter/400.css';
+import '@fontsource/inter/400-italic.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
+import '@fontsource/inter/700-italic.css';
 import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/500.css';
 import '../styles/global.css';
@@ -14,7 +16,7 @@ import Icon from '../components/Icon.astro';
 interface Props { title?: string; description?: string; }
 const { title = 'Home', description = site.description } = Astro.props;
 const path = Astro.url.pathname;
-const navigation: { title: string; href: string; external?: boolean }[] = [{ title: 'Home', href: '/' }, { title: 'Work', href: '/work/' }, { title: 'Posts', href: '/posts/' }, { title: 'Timeline', href: '/timeline/' }, { title: 'Resume', href: site.resumeSite, external: true }, { title: 'Contact', href: '/contact/' }];
+const navigation = [{ title: 'Home', href: '/' }, { title: 'Projects', href: '/projects/' }, { title: 'Blogs', href: '/blogs/' }, { title: 'About', href: '/about/' }, { title: 'Contact', href: '/contact/' }];
 ---
 <!doctype html>
 <html lang="en" data-theme="dark">
@@ -39,8 +41,9 @@ const navigation: { title: string; href: string; external?: boolean }[] = [{ tit
       <header class="site-header">
         <a href="/" class="brand" aria-label={`${site.name}, home`}><span class="brand-name">{site.name}</span></a>
         <nav aria-label="Main navigation">
-          {navigation.map((item) => <a href={item.href} aria-current={(item.href === '/' ? path === '/' : !item.external && path.startsWith(item.href)) ? 'page' : undefined} {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{item.title}</a>)}
+          {navigation.map((item) => <a href={item.href} aria-current={(item.href === '/' ? path === '/' : path.startsWith(item.href)) ? 'page' : undefined}>{item.title}</a>)}
         </nav>
+        <a class="ticket-btn nav-cta" href={site.resumeSite} target="_blank" rel="noopener noreferrer">Resume</a>
         <button class="theme-button icon-button" aria-label="Switch to light theme" title="Switch theme"><span class="sun-icon"><Icon name="sun" size={18} /></span><span class="moon-icon"><Icon name="moon" size={18} /></span></button>
       </header>
       <main id="main"><slot /></main>

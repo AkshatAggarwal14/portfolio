@@ -16,7 +16,7 @@ This post is Postgres-only, practical, and biased toward “indexes that stay fa
 
 In Postgres, when you run:
 
-```
+```sql
 CREATE INDEX idx_orders_user_status_created
 ON orders (user_id, status, created_at);
 ```
@@ -24,9 +24,7 @@ ON orders (user_id, status, created_at);
 you’re not just “indexing three columns.” You’re asking Postgres to maintain a structure sorted like:
 
 1. user_id
-
 2. within each user_id, by status
-
 3. within each (user_id, status), by created_at
 
 That sort order is exactly why the index is usable for some query shapes and not others.
@@ -38,21 +36,15 @@ A composite B-tree index on (A, B, C) is naturally great when your query starts 
 ✅ Great:
 
 - WHERE A = ...
-
 - WHERE A = ... AND B = ...
-
 - WHERE A = ... AND B = ... AND C ...
-
 - WHERE A = ... ORDER BY B (often)
-
 - WHERE A = ... AND B = ... ORDER BY C (often)
 
 🚫 Usually not great:
 
 - WHERE B = ... (without A)
-
 - WHERE C = ... (without A and B)
-
 - WHERE B = ... AND C = ... (without A)
 
 **Mental model:** it’s a phonebook sorted by Last Name then First Name. If you only know First Name, you can’t “jump” efficiently.
@@ -61,7 +53,7 @@ A composite B-tree index on (A, B, C) is naturally great when your query starts 
 
 Let’s say you run this query all day:
 
-```
+```sql
 SELECT *
 FROM orders
 WHERE user_id = 42
@@ -71,7 +63,7 @@ LIMIT 20;
 
 ### Good index
 
-```
+```sql
 CREATE INDEX idx_orders_user_created
 ON orders (user_id, created_at DESC);
 ```
@@ -79,14 +71,12 @@ ON orders (user_id, created_at DESC);
 Why it works:
 
 - Postgres can **seek** directly to user_id = 42
-
 - within that user’s section, rows are already in created_at order
-
 - LIMIT 20 becomes “walk 20 entries” instead of sorting lots of rows
 
 ### Same columns, worse order
 
-```
+```sql
 CREATE INDEX idx_orders_created_user
 ON orders (created_at DESC, user_id);
 ```
@@ -98,16 +88,13 @@ Now the index is sorted by time first, then user. Rows for user_id=42 are scatte
 When designing a composite B-tree index, this is a solid default:
 
 1. **Equality filters first** (=, IN)
-
 2. then **range filters** (>, <, BETWEEN)
-
 3. then **ORDER BY columns** (to avoid sorting)
-
 4. optionally: extra columns for **index-only scans** via INCLUDE
 
 Example query:
 
-```
+```sql
 SELECT id, total
 FROM orders
 WHERE user_id = 42
@@ -119,7 +106,7 @@ LIMIT 50;
 
 A strong index is:
 
-```
+```sql
 CREATE INDEX idx_orders_user_status_created
 ON orders (user_id, status, created_at DESC);
 ```
@@ -133,16 +120,14 @@ Sometimes it can, but it’s usually less efficient.
 Postgres might choose:
 
 - a sequential scan (if it estimates many rows)
-
 - a bitmap index scan (combine multiple indexes)
-
 - an index scan with filtering (scan more, filter later)
 
 Those can work, but they’re often not as stable or fast as a clean left-to-right match.
 
 If you want to see what Postgres is doing, use:
 
-```
+```sql
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT *
 FROM orders
@@ -159,7 +144,7 @@ That output tells you whether Postgres used an Index Scan, Bitmap Index Scan, wh
 
 In Postgres, INCLUDE adds non-key columns to the index payload (not part of the sort order). This helps **index-only scans** without changing the B-tree ordering.
 
-```
+```sql
 CREATE INDEX idx_orders_user_created_include
 ON orders (user_id, created_at DESC)
 INCLUDE (total, currency);
@@ -173,7 +158,7 @@ If your query returns only user_id/created_at/total/currency, Postgres may be ab
 
 If you query a subset constantly, index only that subset:
 
-```
+```sql
 CREATE INDEX idx_orders_pending_by_created
 ON orders (created_at)
 WHERE status = 'PENDING';
@@ -185,7 +170,7 @@ Smaller index = cheaper maintenance + faster scans.
 
 If you do this:
 
-```
+```sql
 SELECT *
 FROM users
 WHERE lower(email) = lower('Akshat@Example.com');
@@ -195,7 +180,7 @@ A plain index on email won’t help much because of lower(email).
 
 Fix it with:
 
-```
+```sql
 CREATE INDEX idx_users_lower_email
 ON users (lower(email));
 ```
@@ -205,9 +190,7 @@ ON users (lower(email));
 Still Postgres, still indexing, but different structures:
 
 - **BRIN**: huge tables, naturally ordered data (timestamps), cheap + great for range-ish scans
-
 - **GIN**: arrays, JSONB containment, full-text search
-
 - **GiST**: geometric/range types and some specialized searches
 
 B-tree is the default workhorse, but it’s not the answer to every query pattern.
@@ -217,13 +200,9 @@ B-tree is the default workhorse, but it’s not the answer to every query patter
 When you’re choosing index order for Postgres B-tree, ask:
 
 - What are the **most common WHERE clauses**? Put those columns first.
-
 - Are those filters mostly **equality** or **range**?
-
 - Do you have a consistent **ORDER BY**? Align the index order to avoid sorting.
-
 - Can INCLUDE give you index-only scans without bloating the key?
-
 - Can a **partial index** shrink the problem dramatically?
 
 ### Closing thought

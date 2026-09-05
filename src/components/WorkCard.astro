@@ -1,11 +1,11 @@
 ---
 import Icon from './Icon.astro';
-interface Props { name: string; title: string; description: string; url?: string; language?: string; stars?: number; demo?: string; }
-const { title, description, url, language, stars, demo } = Astro.props;
+interface Props { name: string; title: string; slug: string; description: string; url?: string; language?: string; stars?: number; demo?: string; }
+const { title, slug, description, url, language, stars, demo } = Astro.props;
 ---
 <article class="tcard work-card"><div class="tcard-in work-in">
   <div class="work-copy">
-    <h3>{url ? <a class="stretch-link" href={url} target="_blank" rel="noopener noreferrer">{title}</a> : title}</h3>
+    <h3>{url ? <a class="stretch-link" href={`/projects/${slug}/`}>{title}</a> : title}</h3>
     <p>{description}</p>
     <span class="mono work-meta">{language}{typeof stars === 'number' && ` · ★ ${stars}`}{demo && <> · <a class="demo-link" href={demo} target="_blank" rel="noopener noreferrer">Live demo ↗</a></>}</span>
   </div>

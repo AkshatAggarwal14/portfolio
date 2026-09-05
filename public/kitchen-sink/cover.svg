@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#282a36"/>
+  <defs>
+    <radialGradient id="orb" cx="35%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#e9d5ff"/>
+      <stop offset="45%" stop-color="#bd93f9"/>
+      <stop offset="100%" stop-color="#4c3a6e"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="600" cy="270" rx="230" ry="90" fill="none" stroke="#bd93f9" stroke-width="3" opacity="0.45" transform="rotate(-18 600 270)"/>
+  <ellipse cx="600" cy="270" rx="300" ry="120" fill="none" stroke="#6272a4" stroke-width="2" opacity="0.5" transform="rotate(12 600 270)"/>
+  <circle cx="600" cy="270" r="110" fill="url(#orb)"/>
+  <circle cx="815" cy="175" r="10" fill="#8be9fd"/>
+  <text x="600" y="490" text-anchor="middle" font-family="monospace" font-size="52" fill="#f8f8f2">Hello, Markdown</text>
+  <text x="600" y="540" text-anchor="middle" font-family="monospace" font-size="26" fill="#8be9fd">one post, every element</text>
+</svg>
