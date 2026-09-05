@@ -56,6 +56,9 @@ export const site = {
         { role: 'Executive Member', period: '2021', details: 'Contributed to club events and technical initiatives.' },
         { role: 'Volunteer', period: '2020', details: 'Volunteered for club events and workshops.' },
       ] },
+      { org: 'CodeChef NIT Hamirpur Chapter', url: 'https://www.codechef.com', roles: [
+        { role: 'Competitive Programming Lead', period: 'Jul 2021 - Jan 2022', details: 'Led the campus CodeChef chapter: conducted programming contests and workshops with 100+ attendees each.', cert: 'https://www.codechef.com/certificates/public/e29be41' },
+      ] },
       { org: 'Robotics Society, NIT Hamirpur', url: 'https://www.robosocnith.in/', roles: [
         { role: 'Executive', period: 'Dec 2020 - Jul 2022', details: 'Used Arduino to design and develop projects containing both hardware and software components.' },
       ] },
@@ -76,10 +79,8 @@ export const site = {
       { label: 'Core', items: ['Distributed Systems', 'Microservices', 'High-Throughput APIs', 'SRE / On-call', 'DBMS', 'Operating Systems'] },
     ],
     achievements: [
-      '2× Intuit BU-wide Quarterly Award winner, for high-delivery impact and operational excellence.',
-      'ICPC 2023 Regionalist with team Deadlock.',
-      'Code with Cisco finalist, top 23 of 60,000+ participants.',
-      'CodeChef 6-star (2211) · Codeforces Expert (1671) · LeetCode top 1.6% (2112).',
+      { title: 'ICPC 2023 Regionalist', detail: 'with team Deadlock', period: 'Dec 2023', url: 'https://icpc.global/ICPCID/6IIRHHSFPAXF' },
+      { title: 'Code with Cisco finalist', detail: 'top 23 of 60,000+ participants', period: 'Jul 2023', url: 'https://drive.google.com/file/d/1eBcJ4Ax0QHJq6Kb9MObrU1M9dQ7qvvbI/view?usp=sharing' },
     ],
     education: [
       { title: 'B.Tech, Computer Science & Engineering', institution: 'National Institute of Technology, Hamirpur · Himachal Pradesh, India', url: 'https://nith.ac.in', detail: 'CGPA: 9.66/10 · Gold Medalist, Class of 2024', period: '2020 - 2024' },
