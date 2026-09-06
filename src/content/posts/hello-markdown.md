@@ -1,7 +1,7 @@
 ---
 title: "Hello, Markdown"
 description: "A style test covering every Markdown element this blog supports."
-date: 2024-06-01
+date: 2021-01-01
 category: Meta
 readTime: 3 min read
 sample: true

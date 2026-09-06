@@ -4,6 +4,7 @@ description: "RBAC vs ABAC, policy-as-code, and OPA: how authorization works in 
 date: 2025-07-31
 category: Security
 readTime: 6 min read
+tags: ["security"]
 sample: false
 mediumUrl: https://medium.com/@akshat_aggarwal/authz-in-production-112d83356dcd
 ---

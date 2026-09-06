@@ -4,6 +4,7 @@ description: A missing index turned a pre-release test into a production fire, a
 date: 2025-07-31
 category: PostgreSQL
 readTime: 4 min read
+tags: ["databases"]
 sample: false
 mediumUrl: https://medium.com/@akshat_aggarwal/a-missing-postgresql-index-4e10679ed8ee
 ---

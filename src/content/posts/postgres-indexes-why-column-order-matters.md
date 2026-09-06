@@ -4,6 +4,7 @@ description: "The same columns can be fast or useless depending on order: B-tree
 date: 2026-02-01
 category: PostgreSQL
 readTime: 5 min read
+tags: ["databases"]
 sample: false
 mediumUrl: https://medium.com/@akshat_aggarwal/postgres-indexes-why-column-order-matters-dd1c018b2106
 ---
