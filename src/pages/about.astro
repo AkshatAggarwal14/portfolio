@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import CpSection from '../components/CpSection.astro';
 import { site } from '../data/site';
 ---
-<Layout title="About">
+<Layout title="About" description="About Akshat Aggarwal, Software Engineer 2 at Intuit in Bengaluru: work on distributed systems and data platforms, community, education, and achievements.">
   <header class="page-heading resume-heading"><div><span class="eyebrow">THE STORY SO FAR</span><h1>About me<span class="heading-dot">.</span></h1><p>Work, community, education, skills, and wins.</p></div></header>
   <article class="tcard"><div class="tcard-in resume-sheet">
     <section class="resume-section"><h3 class="eyebrow">WORK</h3><div class="timeline">{site.resume.experience.map((job) => <div class={job.roles.some((r) => r.period.includes('Present')) ? 'timeline-entry current' : 'timeline-entry'}><div class="job-heading"><h4>{job.url ? <a href={job.url} target="_blank" rel="noopener noreferrer">{job.company}</a> : job.company}</h4><span class="mono">{job.location}</span></div>{job.roles.map((r) => <div class="timeline-role"><div class="job-subheading"><strong>{r.role}</strong><span class="mono">{r.period}</span></div><ul>{r.details.map((d) => <li set:html={d} />)}</ul></div>)}</div>)}</div></section>

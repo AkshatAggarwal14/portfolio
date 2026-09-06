@@ -11,7 +11,7 @@ for (const post of posts) {
 }
 const allTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 ---
-<Layout title="Blogs">
+<Layout title="Blogs" description="Blog posts by Akshat Aggarwal on distributed systems, PostgreSQL, databases, and building reliable software.">
   <header class="page-heading"><span class="eyebrow">THE NOTEBOOK</span><h1>Blogs<span class="heading-dot">.</span></h1><p>Notes on building software, learning things, and everything in between.</p></header>
   {allTags.length > 0 && (
     <section class="tcard filter-card" aria-label="Filter posts"><div class="tcard-in filter-card-in">
@@ -48,6 +48,16 @@ const allTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].loca
       <button type="button" class="chip" id="filter-reset">Show all posts</button>
     </div>
   </div></section>
+  <noscript>
+    <section class="tcard"><div class="tcard-in archive-in">
+      <div class="archive-heading mono"><span>ALL POSTS</span></div>
+      <ul>
+        {posts.map((post) => (
+          <li><a href={`/blogs/${post.id}/`}>{post.data.title}</a> — {post.data.description}</li>
+        ))}
+      </ul>
+    </div></section>
+  </noscript>
   <script>
     const tagButtons = [...document.querySelectorAll<HTMLButtonElement>('#filter-tags [data-filter]')];
     const rows = [...document.querySelectorAll<HTMLElement>('#archive-list .archive-row')];

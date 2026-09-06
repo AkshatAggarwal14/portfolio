@@ -2,7 +2,7 @@
 export const site = {
   name: 'Akshat Aggarwal',
   role: 'Software Engineer 2 at Intuit',
-  description: 'Akshat Aggarwal, Software Engineer working on distributed systems, data platforms, and reliable APIs.',
+  description: 'Akshat Aggarwal, Software Engineer 2 at Intuit in Bengaluru working on distributed systems, data platforms, and reliable APIs.',
   email: 'contact@akshataggarwal.is-a.dev',
   resumeSite: 'https://akshataggarwal14.github.io/resume/',
   socials: [

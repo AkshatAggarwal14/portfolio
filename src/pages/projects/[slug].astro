@@ -5,8 +5,18 @@ export async function getStaticPaths() { return (await getCollection('projects')
 const { project } = Astro.props;
 const { Content } = await render(project);
 const data = project.data;
+const pageUrl = new URL(`/projects/${project.id}/`, Astro.site).toString();
+const projectSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: data.title,
+  description: data.description,
+  url: pageUrl,
+  author: { '@type': 'Person', name: 'Akshat Aggarwal', url: Astro.site?.toString() },
+  keywords: data.stack.join(', '),
+};
 ---
-<Layout title={data.title} description={data.description}>
+<Layout title={data.title} description={data.description} type="article" ogImage={`/projects/og/${project.id}.png`} tags={data.stack} schema={projectSchema}>
   <article class="article-wrap">
     <a class="text-link back-link" href="/projects/"><span class="back-arrow">&larr;</span> All projects</a>
     <header class="page-heading project-head">
