@@ -5,6 +5,7 @@ import WorkCard from '../components/WorkCard.astro';
 import { site } from '../data/site';
 import { getCollection } from 'astro:content';
 const recentPosts = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
 const github = site.socials.find((s) => s.icon === 'github');
 const linkedin = site.socials.find((s) => s.icon === 'linkedin');
 const x = site.socials.find((s) => s.icon === 'x');
@@ -32,6 +33,6 @@ const x = site.socials.find((s) => s.icon === 'x');
       {site.tools.map((group) => <div class="stack-group"><h3>{group.label}</h3><div class="tags">{group.items.map((tool) => <span>{tool}</span>)}</div></div>)}
     </div></div>
   </div>
-  <section class="section-block home-work" aria-labelledby="work-title"><div class="section-heading"><div><span class="eyebrow">FROM GITHUB</span><h2 id="work-title">Selected work<span class="heading-dot">.</span></h2></div><a class="text-link" href="/projects/">See all work <Icon name="right" size={16} /></a></div><div class="work-list">{site.work.slice(0, 3).map((project) => <WorkCard {...project} />)}</div></section>
+  <section class="section-block home-work" aria-labelledby="work-title"><div class="section-heading"><div><span class="eyebrow">FROM GITHUB</span><h2 id="work-title">Selected work<span class="heading-dot">.</span></h2></div><a class="text-link" href="/projects/">See all work <Icon name="right" size={16} /></a></div><div class="work-list">{projects.map((p) => <WorkCard name={p.data.repo} title={p.data.title} slug={p.id} description={p.data.description} url={p.data.url} language={p.data.language} stars={p.data.stars} demo={p.data.demo} />)}</div></section>
   <section class="section-block home-posts" aria-labelledby="posts-title"><div class="section-heading"><div><span class="eyebrow">FROM THE NOTEBOOK</span><h2 id="posts-title">Latest blogs<span class="heading-dot">.</span></h2></div><a class="text-link" href="/blogs/">See all blogs <Icon name="right" size={16} /></a></div><div class="work-list">{recentPosts.map((post) => <a class="tcard work-card" href={`/blogs/${post.id}/`}><div class="tcard-in work-in"><div class="work-copy"><h3>{post.data.title}</h3><p>{post.data.description}</p><span class="mono work-meta">{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })} · {post.data.category} · {post.data.readTime}</span></div><span class="work-arrow" aria-hidden="true"><Icon name="arrow" size={20} /></span></div></a>)}</div></section>
 </Layout>

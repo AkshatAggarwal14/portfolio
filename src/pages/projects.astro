@@ -2,12 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import WorkCard from '../components/WorkCard.astro';
-import { site } from '../data/site';
+import { getCollection } from 'astro:content';
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 ---
 <Layout title="Projects" description="Selected public work by Akshat Aggarwal, straight from GitHub.">
   <header class="page-heading"><span class="eyebrow">SELECTED WORK, STRAIGHT FROM GITHUB</span><h1>Projects<span class="heading-dot">.</span></h1><p>A few things I've built and shared. Every card links to the real repository.</p></header>
-  {site.work.length > 0 ? (
-    <div class="work-list work-page-list">{site.work.map((project) => <WorkCard {...project} />)}</div>
+  {projects.length > 0 ? (
+    <div class="work-list work-page-list">{projects.map((p) => <WorkCard name={p.data.repo} title={p.data.title} slug={p.id} description={p.data.description} url={p.data.url} language={p.data.language} stars={p.data.stars} demo={p.data.demo} />)}</div>
   ) : (
     <div class="tcard"><div class="tcard-in coming-soon"><h2>Coming soon.</h2><p>Nothing public to show here yet. Check back later.</p></div></div>
   )}
