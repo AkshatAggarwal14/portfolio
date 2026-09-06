@@ -25,7 +25,7 @@ test('navigation, posts, and project pages work', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toContainText('RFID Attendance System');
   await expect(page.getByRole('link', { name: /repository/i })).toHaveAttribute('href', 'https://github.com/AkshatAggarwal14/RFID-Attendance-system');
   await page.getByRole('navigation').getByRole('link', { name: 'Contact' }).click();
-  await expect(page.getByRole('link', { name: /send an email/i })).toHaveAttribute('href', 'mailto:akshataggarwal1411@gmail.com');
+  await expect(page.getByRole('link', { name: /send an email/i })).toHaveAttribute('href', 'mailto:contact@akshataggarwal.is-a.dev');
   await expect(page.getByRole('link', { name: /github/i }).first()).toHaveAttribute('href', 'https://github.com/AkshatAggarwal14');
   await expect(page.getByRole('link', { name: /x \/ twitter/i }).first()).toHaveAttribute('href', 'https://x.com/akshat14agg');
   await expect(page.locator('a[href=""], a[href="#"]')).toHaveCount(0);
