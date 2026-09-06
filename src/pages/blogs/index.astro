@@ -14,15 +14,15 @@ const allTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].loca
 <Layout title="Blogs">
   <header class="page-heading"><span class="eyebrow">THE NOTEBOOK</span><h1>Blogs<span class="heading-dot">.</span></h1><p>Notes on building software, learning things, and everything in between.</p></header>
   {allTags.length > 0 && (
-    <section class="card filter-card" aria-label="Filter posts">
+    <section class="tcard filter-card" aria-label="Filter posts"><div class="tcard-in filter-card-in">
       <div class="filter-top mono"><span>FILTER BY TAG</span><span id="filter-count">{String(posts.length).padStart(2, '0')} / {String(posts.length).padStart(2, '0')}</span></div>
       <div class="tags filter-tags" id="filter-tags" role="group" aria-label="Filter posts by tag">
         <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">All</button>
         {allTags.map(([tag, count]) => <button type="button" class="chip" data-filter={tag} aria-pressed="false">#{tag}<span class="chip-count">{count}</span></button>)}
       </div>
-    </section>
+    </div></section>
   )}
-  <section class="card archive">
+  <section class="tcard archive"><div class="tcard-in archive-in">
     <div class="archive-heading mono"><span>ALL POSTS</span><span>{String(posts.length).padStart(2, '0')} ENTRIES</span></div>
     <div id="archive-list">
       {posts.map((post) => (
@@ -47,7 +47,7 @@ const allTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].loca
       <p>No posts with this tag yet.</p>
       <button type="button" class="chip" id="filter-reset">Show all posts</button>
     </div>
-  </section>
+  </div></section>
   <script>
     const tagButtons = [...document.querySelectorAll<HTMLButtonElement>('#filter-tags [data-filter]')];
     const rows = [...document.querySelectorAll<HTMLElement>('#archive-list .archive-row')];
