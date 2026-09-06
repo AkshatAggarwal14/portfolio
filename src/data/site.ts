@@ -37,7 +37,7 @@ export const site = {
         { role: 'Problem Setter Intern', period: 'Sep 2023 - Dec 2023', details: ['Curated and reviewed problems for hiring challenges and InterviewBit.'] },
       ] },
       { company: 'Coding Ninjas', location: 'Remote', url: 'https://www.codingninjas.com', roles: [
-        { role: 'Technical Content Writer Intern', period: 'Mar 2023 - Jun 2023', details: ['Authored 30+ technical posts and tutorials for students.'] },
+        { role: 'Technical Content Writer Intern', period: 'Mar 2023 - Jun 2023', details: ['Wrote and edited <a href="https://www.naukri.com/code360/profile/AkshatAggarwal" target="_blank" rel="noopener noreferrer">30+ technical posts</a> and tutorials across Python, DBMS, C, DSA, and web development (e.g. Python memory management, SQL primary vs unique keys, tree applications, CSS layouts), each with runnable code, visuals, and FAQs, helping students learn and excel.'] },
       ] },
       { company: 'Coding Shuttle', location: 'Remote', url: 'https://www.codingshuttle.com', roles: [
         { role: 'Problem Setter', period: 'Feb 2023 - Mar 2023', details: ['Wrote DSA test cases and optimal solutions.'] },
