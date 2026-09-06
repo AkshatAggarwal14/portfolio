@@ -12,7 +12,6 @@
   --accent: #bd93f9;
   --accent-soft: #2d273b;
   --green: #a8d4ac;
-  --radius: 18px;
   --font-display: 'Space Grotesk', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   font-family: 'Inter', sans-serif;
@@ -51,7 +50,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .page-intro { display: flex; align-items: center; justify-content: space-between; margin: 0 0 23px; }
 .intro-note { display: inline-flex; align-items: center; gap: 8px; color: var(--faint); font-size: 11px; }
 .status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px color-mix(in srgb, var(--green) 7%, transparent); flex-shrink: 0; }
-.card { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+/* Large surfaces use chamfered .tcard / .tcard-in (see below). Small controls stay rounded/pill by design. */
 .home-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; }
 .hero-card { grid-column: span 8; padding: 34px 38px 26px; }
 .hero-card > .eyebrow { display: flex; align-items: center; gap: 9px; }
@@ -346,3 +345,16 @@ body { background-image: linear-gradient(color-mix(in srgb, var(--border) 42%, t
 .cp-stats small { font-size: 10px; color: var(--faint); }
 .cp-spark { width: 100%; height: 56px; margin-top: 4px; }
 @media (max-width: 700px) { .cp-grid { grid-template-columns: 1fr; } }
+
+/* Unified large-card system: all large surfaces are chamfered via .tcard.
+   Inner padding variants override the default .tcard-in padding. */
+.tcard-in.resume-sheet { padding: 40px; }
+.tcard-in.about-card { padding: 32px 36px; }
+.tcard.filter-card { margin-bottom: 18px; }
+.tcard-in.filter-card-in { padding: 0 32px 22px; }
+.tcard.archive { margin-bottom: 100px; }
+.tcard-in.archive-in { padding: 0 32px; }
+.tcard-in.contact-main { padding: 35px; }
+.tcard-in.contact-channels { padding: 30px; }
+@media (max-width: 760px) { .tcard-in.archive-in, .tcard-in.filter-card-in { padding-left: 23px; padding-right: 23px; } }
+@media (max-width: 430px) { .tcard-in.contact-main, .tcard-in.contact-channels { padding: 25px; } }
