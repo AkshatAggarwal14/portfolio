@@ -4,7 +4,7 @@ description: "From one pile to three: winning and losing positions, and the xor 
 date: 2023-07-19
 category: CP
 readTime: 4 min read
-tags: ["math", "game-theory"]
+tags: ["dsa"]
 ---
 
 Three piles of chips (say 5, 7, 9). Two players alternate, each removing any positive number of chips from a single pile. Whoever takes the last chip wins.

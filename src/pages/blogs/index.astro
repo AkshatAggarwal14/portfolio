@@ -3,8 +3,114 @@ import Layout from '../../layouts/Layout.astro';
 import Icon from '../../components/Icon.astro';
 import { getCollection } from 'astro:content';
 const posts = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const tagCounts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  }
+}
+const allTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 ---
 <Layout title="Blogs">
   <header class="page-heading"><span class="eyebrow">THE NOTEBOOK</span><h1>Blogs<span class="heading-dot">.</span></h1><p>Notes on building software, learning things, and everything in between.</p></header>
-  <section class="card archive"><div class="archive-heading mono"><span>ALL POSTS</span><span>{String(posts.length).padStart(2, '0')} ENTRIES</span></div>{posts.map((post) => <a class="archive-row" href={`/blogs/${post.id}/`}><span class="mono archive-date">{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</span><div><div class="eyebrow">{post.data.category}{post.data.sample && <span class="sample-badge">SAMPLE</span>}</div><h2>{post.data.title}</h2><p>{post.data.description}</p>{post.data.tags.length > 0 && <div class="tags archive-tags">{post.data.tags.map((t) => <span>#{t}</span>)}</div>}<small>{post.data.readTime}</small></div><Icon name="arrow" /></a>)}</section>
+  {allTags.length > 0 && (
+    <section class="card filter-card" aria-label="Filter posts">
+      <div class="filter-top mono"><span>FILTER BY TAG</span><span id="filter-count">{String(posts.length).padStart(2, '0')} / {String(posts.length).padStart(2, '0')}</span></div>
+      <div class="tags filter-tags" id="filter-tags" role="group" aria-label="Filter posts by tag">
+        <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+        {allTags.map(([tag, count]) => <button type="button" class="chip" data-filter={tag} aria-pressed="false">#{tag}<span class="chip-count">{count}</span></button>)}
+      </div>
+    </section>
+  )}
+  <section class="card archive">
+    <div class="archive-heading mono"><span>ALL POSTS</span><span>{String(posts.length).padStart(2, '0')} ENTRIES</span></div>
+    <div id="archive-list">
+      {posts.map((post) => (
+        <article class="archive-row" data-tags={post.data.tags.join(' ')}>
+          <span class="mono archive-date">{post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</span>
+          <div>
+            <div class="eyebrow">{post.data.category}{post.data.sample && <span class="sample-badge">SAMPLE</span>}</div>
+            <h2><a class="stretch-link" href={`/blogs/${post.id}/`}>{post.data.title}</a></h2>
+            <p>{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <div class="tags archive-tags">
+                {post.data.tags.map((t) => <button type="button" data-tag-link={t} title={`Filter by #${t}`}>#{t}</button>)}
+              </div>
+            )}
+            <small>{post.data.readTime}</small>
+          </div>
+          <Icon name="arrow" />
+        </article>
+      ))}
+    </div>
+    <div class="filter-empty" id="filter-empty" hidden>
+      <p>No posts with this tag yet.</p>
+      <button type="button" class="chip" id="filter-reset">Show all posts</button>
+    </div>
+  </section>
+  <script>
+    const tagButtons = [...document.querySelectorAll<HTMLButtonElement>('#filter-tags [data-filter]')];
+    const rows = [...document.querySelectorAll<HTMLElement>('#archive-list .archive-row')];
+    const countEl = document.querySelector('#filter-count');
+    const emptyEl = document.querySelector<HTMLElement>('#filter-empty');
+    const resetBtn = document.querySelector<HTMLButtonElement>('#filter-reset');
+    const total = rows.length;
+    const pad = (n: number) => String(n).padStart(2, '0');
+
+    function applyFilter(tag: string, updateUrl = true) {
+      const active = tag === 'all' ? null : tag;
+      let visible = 0;
+      for (const row of rows) {
+        const tags = (row.dataset.tags ?? '').split(' ').filter(Boolean);
+        const show = !active || tags.includes(active);
+        row.hidden = !show;
+        if (show) visible += 1;
+      }
+      for (const btn of tagButtons) {
+        const isActive = btn.dataset.filter === tag;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-pressed', String(isActive));
+      }
+      for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-tag-link]')) {
+        btn.classList.toggle('is-active', !!active && btn.dataset.tagLink === active);
+      }
+      if (countEl) countEl.textContent = `${pad(visible)} / ${pad(total)}`;
+      if (emptyEl) emptyEl.hidden = visible !== 0;
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        if (active) url.searchParams.set('tag', active);
+        else url.searchParams.delete('tag');
+        history.replaceState(null, '', url);
+      }
+    }
+
+    tagButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tag = btn.dataset.filter ?? 'all';
+        // Clicking the active tag again clears the filter.
+        const isActive = btn.classList.contains('is-active');
+        applyFilter(isActive && tag !== 'all' ? 'all' : tag);
+      });
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('[data-tag-link]').forEach((btn) => {
+      btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const tag = btn.dataset.tagLink ?? 'all';
+        const alreadyActive = document.querySelector(`#filter-tags [data-filter="${CSS.escape(tag)}"]`)?.classList.contains('is-active');
+        applyFilter(alreadyActive ? 'all' : tag);
+        document.querySelector('#filter-tags')?.scrollIntoView({ block: 'nearest', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      });
+    });
+
+    resetBtn?.addEventListener('click', () => applyFilter('all'));
+
+    const initial = new URLSearchParams(window.location.search).get('tag');
+    if (initial && tagButtons.some((b) => b.dataset.filter === initial)) {
+      applyFilter(initial, false);
+    } else {
+      if (countEl) countEl.textContent = `${pad(total)} / ${pad(total)}`;
+    }
+  </script>
 </Layout>

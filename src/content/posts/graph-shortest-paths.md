@@ -4,7 +4,7 @@ description: "From BFS on weighted graphs to Dijkstra, multisource Dijkstra, cyc
 date: 2021-10-10
 category: CP
 readTime: 10 min read
-tags: ["graphs", "shortest-paths"]
+tags: ["dsa"]
 ---
 
 > Cities connected by flights with a cost per route — minimize the total cost from city A to city B.

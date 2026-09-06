@@ -4,7 +4,7 @@ description: "Offline sqrt decomposition for range queries: complexity analysis,
 date: 2023-04-02
 category: CP
 readTime: 8 min read
-tags: ["techniques", "range-queries"]
+tags: ["dsa"]
 ---
 
 Learning sources: [cp-algorithms on sqrt decomposition](https://cp-algorithms.com/data_structures/sqrt_decomposition.html), [Mo's with updates](https://www.youtube.com/watch?v=gUpfwVRXhNY).

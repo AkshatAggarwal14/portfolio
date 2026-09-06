@@ -4,7 +4,7 @@ description: "Prefix sums with point updates in O(log n): how the Binary Indexed
 date: 2022-06-19
 category: CP
 readTime: 5 min read
-tags: ["data-structures", "range-queries"]
+tags: ["dsa"]
 ---
 
 ## Why are Fenwick trees / Binary Indexed Trees (BITs) needed?
