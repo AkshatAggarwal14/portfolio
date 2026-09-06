@@ -4,7 +4,7 @@ description: "Divide and conquer on trees: centroids, centroid trees, and path q
 date: 2022-06-26
 category: CP
 readTime: 6 min read
-tags: ["graphs", "trees", "divide-and-conquer"]
+tags: ["dsa"]
 ---
 
 ## Centroid

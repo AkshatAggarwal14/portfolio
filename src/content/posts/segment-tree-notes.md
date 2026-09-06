@@ -4,7 +4,7 @@ description: "Build, query, and update a segment tree for range sums, with diagr
 date: 2022-02-17
 category: CP
 readTime: 7 min read
-tags: ["data-structures", "range-queries"]
+tags: ["dsa"]
 ---
 
 A segment tree answers range queries — sum, min, max over `[L, R]` — in logarithmic time, with point and range updates to match. Here is the whole idea, bottom up.

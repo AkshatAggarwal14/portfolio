@@ -4,7 +4,7 @@ description: "Tree diameter via two BFS runs, counting diameters, and finding th
 date: 2022-06-25
 category: CP
 readTime: 8 min read
-tags: ["graphs", "trees", "proofs"]
+tags: ["dsa"]
 ---
 
 ## Trees

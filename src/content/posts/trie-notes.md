@@ -4,7 +4,7 @@ description: "Prefix trees for autocomplete, spellcheck, and xor queries — str
 date: 2022-07-16
 category: CP
 readTime: 6 min read
-tags: ["data-structures", "strings"]
+tags: ["dsa"]
 ---
 
 ## What is a trie?

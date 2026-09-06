@@ -4,7 +4,7 @@ description: "Representations, DFS, BFS, connected components, and multisource B
 date: 2021-09-26
 category: CP
 readTime: 12 min read
-tags: ["graphs", "bfs-dfs"]
+tags: ["dsa"]
 ---
 
 ## Graphs

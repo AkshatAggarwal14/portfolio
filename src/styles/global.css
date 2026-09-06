@@ -135,7 +135,26 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .prose img { max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); }
 .post-tags { margin-top: 14px; }.archive-tags { margin: 10px 0 4px; }
 .archive-row .eyebrow { color: var(--accent); }
-.archive-tags span, .post-tags span { color: var(--text); border-color: color-mix(in srgb, var(--accent) 45%, transparent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+/* Blog tags: pill + accent hash */
+.archive-tags, .post-tags, .filter-tags { gap: 8px; }
+.archive-tags button, .post-tags span, .filter-tags .chip, .filter-empty .chip { display: inline-flex; align-items: center; gap: 1px; padding: 5px 13px 5px 11px; border: 1px solid var(--border); border-radius: 999px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1px; line-height: 1.5; color: var(--muted); background: color-mix(in srgb, var(--raised) 45%, transparent); }
+.post-tags span { padding: 6px 14px 6px 12px; font-size: 12px; }
+.archive-tags button { position: relative; z-index: 1; cursor: pointer; transition: color 160ms, border-color 160ms, background 160ms, transform 160ms, box-shadow 160ms; }
+.filter-tags .chip, .filter-empty .chip { cursor: pointer; transition: color 160ms, border-color 160ms, background 160ms, transform 160ms, box-shadow 160ms; }
+.archive-tags button:hover, .filter-tags .chip:hover, .filter-empty .chip:hover { color: var(--text); border-color: color-mix(in srgb, var(--accent) 60%, transparent); background: color-mix(in srgb, var(--accent) 14%, transparent); transform: translateY(-1px); }
+.archive-tags button:focus-visible, .filter-tags .chip:focus-visible, .filter-empty .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.filter-tags .chip.is-active, .archive-tags button.is-active { color: var(--text); border-color: color-mix(in srgb, var(--accent) 65%, transparent); background: color-mix(in srgb, var(--accent) 22%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent); }
+.filter-tags .chip-count { display: inline-grid; place-items: center; min-width: 20px; height: 18px; padding: 0 6px; margin-left: 7px; border-radius: 999px; font-size: 10px; color: var(--faint); background: color-mix(in srgb, var(--text) 8%, transparent); }
+.filter-tags .chip.is-active .chip-count { color: var(--text); background: color-mix(in srgb, var(--text) 14%, transparent); }
+@media (prefers-reduced-motion: reduce) { .archive-tags button, .filter-tags .chip, .filter-empty .chip { transform: none; } }
+.archive-row { position: relative; }
+.archive-row[hidden] { display: none; }
+.archive-row .stretch-link::after { content: ''; position: absolute; inset: 0; }
+.archive-row h2 a:hover { color: var(--accent); }
+.filter-card { padding: 0 32px 22px; margin-bottom: 18px; }
+.filter-top { display: flex; justify-content: space-between; padding: 23px 0 14px; font-size: 10px; color: var(--faint); }
+.filter-empty { padding: 32px 0; text-align: center; color: var(--muted); font-size: 13px; }
+.filter-empty .chip { margin-top: 14px; }
 .shot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 20px 0 8px; }.shot-grid figure { margin: 0; }.shot-grid img { width: 100%; display: block; }.shot-grid figcaption { font-size: 12px; color: var(--muted); margin-top: 8px; }
 @media (max-width: 760px) { .shot-grid { grid-template-columns: 1fr; } }
 .prose li > p { margin: 6px 0; }
