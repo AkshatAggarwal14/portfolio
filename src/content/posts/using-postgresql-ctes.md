@@ -4,6 +4,7 @@ description: A practical guide to writing readable, correct queries with Postgre
 date: 2025-04-29
 category: PostgreSQL
 readTime: 7 min read
+tags: ["databases"]
 sample: false
 mediumUrl: https://medium.com/@akshat_aggarwal/using-postgresql-ctes-721bfbd85890
 ---
