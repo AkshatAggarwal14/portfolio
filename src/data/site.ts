@@ -1,10 +1,8 @@
 // Site content: profile, work, posts, and resume data. Mirrors resume.tex. Edit here to make it yours.
 export const site = {
   name: 'Akshat Aggarwal',
-  initials: 'AA',
   role: 'Software Engineer 2 at Intuit',
   description: 'Akshat Aggarwal, Software Engineer working on distributed systems, data platforms, and reliable APIs.',
-  intro: 'I work on enterprise-scale distributed systems and data platforms. I care about simple design, reliable systems, and software that quietly does its job well.',
   email: 'contact@akshataggarwal.is-a.dev',
   resumeSite: 'https://akshataggarwal14.github.io/resume/',
   socials: [
@@ -12,7 +10,6 @@ export const site = {
     { name: 'LinkedIn', handle: 'akshataggarwal1411', url: 'https://linkedin.com/in/akshataggarwal1411', icon: 'linkedin' },
     { name: 'X / Twitter', handle: 'akshat14agg', url: 'https://x.com/akshat14agg', icon: 'x' },
   ],
-  now: 'Building enterprise data and authorization systems at Intuit, and keeping this space a calm record of the work.',
   tools: [
     { label: 'Languages', items: ['Java', 'Go', 'Kotlin', 'TypeScript', 'Python', 'C/C++', 'SQL', 'GraphQL'] },
     { label: 'Frameworks', items: ['React', 'Spring Boot', 'Node.js', 'Express', 'FastAPI'] },
@@ -21,7 +18,6 @@ export const site = {
   ],
   // Projects now live as Markdown in src/content/projects/. The work page says "Coming soon" if empty.
   resume: {
-    summary: 'Software Engineer 2 at Intuit, working on enterprise-scale distributed systems and data platforms. B.Tech, Computer Science from NIT Hamirpur (Gold Medalist, Class of 2024). Interested in high-throughput APIs, reliability, and clear, maintainable design.',
     experience: [
       { company: 'Intuit', location: 'Bengaluru, India', url: 'https://erp.intuit.com', roles: [
         { role: 'Software Engineer 2', period: 'Feb 2026 - Present', details: ['Built an AI-assisted workflow for reviewing, editing, and bulk-applying data recommendations, combining centralized React state management with high-throughput Kafka consumers and outbox event patterns.', 'Engineered an event-driven pipeline using standardized System Objects (vertical schemas) to ingest third-party data and auto-provision analytics infra from schema events, cutting app onboarding to Intuit Enterprise Suite from months to weeks.', "Pioneered Intuit's first dynamic RBAC implementation, enabling user-created custom objects to self-register as authorization resources with granular, per-object CRUD permissions.", 'Spearheaded an automated lifecycle engine processing ~4,500 entities/month, eliminating recurring customer support inquiries and reducing operational support toil by ~90% (from ~50 to 4–5 tickets/month).'] },
@@ -58,11 +54,6 @@ export const site = {
       { org: 'GNU/Linux Users Group (GLUG), NIT Hamirpur', url: 'https://glugnith.github.io/', roles: [
         { role: 'Member', period: 'Dec 2020 - Jul 2024', details: 'Member of the campus GNU/Linux users group.' },
       ] },
-    ],
-    projects: [
-      { name: 'RFID Attendance System', stack: 'Node.js / Arduino', url: 'https://github.com/AkshatAggarwal14/RFID-Attendance-system', details: ['RFID card-scanning attendance with serial communication between Arduino and Node.js.'] },
-      { name: 'Sort Visualizer', stack: 'p5.js / HTML / CSS', url: 'https://github.com/AkshatAggarwal14/Sorting-Algorithms', demo: 'https://akshataggarwal14.github.io/Sorting-Algorithms/', details: ['Interactive sorting visualizations with adjustable size and speed.'] },
-      { name: 'React Wordle', stack: 'React / CSS', url: 'https://github.com/AkshatAggarwal14/react-wordle', demo: 'https://wordle-with-react.netlify.app/', details: ['Word-guessing game with animations and responsive design.'] },
     ],
     skills: [
       { label: 'Languages', items: ['Java', 'Go', 'Kotlin', 'TypeScript', 'Python', 'C/C++', 'SQL', 'GraphQL'] },
