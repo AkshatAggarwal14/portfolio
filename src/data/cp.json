@@ -1,5 +1,5 @@
 {
-  "asOf": "Sep 2026",
+  "asOf": "Oct 2026",
   "platforms": [
     {
       "name": "Codeforces",
@@ -462,11 +462,11 @@
         },
         {
           "label": "Solved",
-          "value": "800"
+          "value": "806"
         },
         {
           "label": "Global",
-          "value": "12,489th"
+          "value": "12,539th"
         }
       ],
       "history": [
